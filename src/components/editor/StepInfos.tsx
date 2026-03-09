@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Camera, Mail, Phone, MapPin, Linkedin, Globe, User } from 'lucide-react';
+import { Camera, Mail, Phone, MapPin, Linkedin, Globe, User, Info } from 'lucide-react';
 import { useCVStore } from '../../store/cvStore';
 
 export default function StepInfos() {
@@ -32,6 +32,26 @@ export default function StepInfos() {
 
   return (
     <div style={{ display:'flex', flexDirection:'column', gap:24 }}>
+
+      {/* ── Bannière d'aide ── */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 10,
+        padding: '12px 14px',
+        background: 'var(--terra-light)',
+        border: '1px solid rgba(180,80,60,0.18)',
+        borderRadius: 10,
+        fontSize: 12,
+        color: 'var(--gray)',
+        lineHeight: 1.6,
+      }}>
+        <Info size={15} style={{ color: 'var(--terra)', flexShrink: 0, marginTop: 1 }} />
+        <span>
+          <strong style={{ color: 'var(--dark)' }}>Ces informations sont des exemples</strong> — remplacez-les par les vôtres.
+          Cliquez sur n'importe quel champ pour le modifier.
+        </span>
+      </div>
 
       {/* ── Photo ── */}
       <div>
