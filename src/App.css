@@ -1267,3 +1267,110 @@ input[type="checkbox"] { accent-color: var(--terra); cursor: pointer; }
   .no-print { display: none !important; }
   .preview-document { box-shadow: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   TABS MOBILE — remplace le select déroulant
+   ═══════════════════════════════════════════════════════════ */
+.mob-tabs {
+  display: none; /* caché sur desktop */
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: var(--white);
+  border-bottom: 1px solid var(--border-md);
+  padding: 0 4px;
+  gap: 2px;
+  /* Empêche le rebond iOS */
+  overscroll-behavior-x: contain;
+}
+.mob-tabs::-webkit-scrollbar { display: none; }
+
+.mob-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 14px 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--gray);
+  transition: color 0.15s;
+}
+.mob-tab.is-active { color: var(--terra); }
+.mob-tab.is-done   { color: var(--dark); }
+
+.mob-tab-icon {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--sand-light);
+  transition: all 0.15s;
+}
+.mob-tab.is-active .mob-tab-icon {
+  background: var(--terra);
+  color: white;
+  box-shadow: 0 2px 8px rgba(183,110,110,0.3);
+}
+.mob-tab.is-done .mob-tab-icon {
+  background: var(--sand);
+  color: var(--terra);
+}
+
+.mob-tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  font-family: var(--font-ui);
+}
+.mob-tab.is-active .mob-tab-label { font-weight: 700; }
+
+/* Indicateur actif en bas */
+.mob-tab-pip {
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--terra);
+  border-radius: 2px 2px 0 0;
+}
+
+/* Bouton aperçu — label toujours visible sur mobile */
+.ed-preview-label {
+  font-size: 12px;
+}
+
+@media (max-width: 1100px) {
+  .mob-tabs.mobile-only { display: flex; }
+
+  /* Supprimer le select — plus nécessaire */
+  .ed-step-selector { display: none !important; }
+
+  /* Bouton aperçu plus visible */
+  .ed-preview-toggle.mobile-only {
+    display: flex;
+    background: var(--terra-light);
+    border-color: var(--terra-mid);
+    color: var(--terra);
+    padding: 6px 12px;
+    gap: 5px;
+  }
+  .ed-preview-toggle.mobile-only .ed-preview-label { display: inline; }
+  .ed-preview-toggle.is-active {
+    background: var(--terra);
+    color: white;
+    border-color: var(--terra);
+  }
+}
+
+@media (max-width: 700px) {
+  .ed-preview-toggle.mobile-only {
+    padding: 8px 12px;
+    height: 40px;
+  }
+}

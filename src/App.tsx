@@ -17,11 +17,11 @@ import ExportPdfButton from './components/pdf/ExportPdfButton';
 import './App.css';
 
 const STEPS = [
-  { id: 'infos',      label: 'Infos',        fullLabel: 'Informations',  icon: <User          size={16}/>, hint: 'Identité & contact'  },
-  { id: 'experience', label: 'Expérience',   fullLabel: 'Expériences',   icon: <Briefcase     size={16}/>, hint: 'Postes & missions'   },
-  { id: 'formation',  label: 'Formation',    fullLabel: 'Formation',     icon: <GraduationCap size={16}/>, hint: 'Diplômes & certifs'  },
-  { id: 'skills',     label: 'Compétences',  fullLabel: 'Compétences',   icon: <Zap           size={16}/>, hint: 'Tech, langues, soft' },
-  { id: 'design',     label: 'Design',       fullLabel: 'Mise en page',  icon: <Palette       size={16}/>, hint: 'Template & couleurs' },
+  { id: 'infos',      label: 'Infos',       fullLabel: 'Informations', icon: <User          size={16}/>, hint: 'Identité & contact'  },
+  { id: 'experience', label: 'Expérience',  fullLabel: 'Expériences',  icon: <Briefcase     size={16}/>, hint: 'Postes & missions'   },
+  { id: 'formation',  label: 'Formation',   fullLabel: 'Formation',    icon: <GraduationCap size={16}/>, hint: 'Diplômes & certifs'  },
+  { id: 'skills',     label: 'Compétences', fullLabel: 'Compétences',  icon: <Zap           size={16}/>, hint: 'Tech, langues, soft' },
+  { id: 'design',     label: 'Design',      fullLabel: 'Mise en page', icon: <Palette       size={16}/>, hint: 'Template & couleurs' },
 ] as const;
 
 type StepId = typeof STEPS[number]['id'];
@@ -44,6 +44,7 @@ export default function App() {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const startWidth = useRef(0);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   const idx    = STEPS.findIndex(s => s.id === currentStep);
   const step   = STEPS[idx];
@@ -56,6 +57,15 @@ export default function App() {
   const name = [cvData.personal.firstName, cvData.personal.lastName]
     .filter(Boolean).join(' ');
 
+  // Scroll l'onglet actif dans la vue
+  useEffect(() => {
+    if (!tabsRef.current) return;
+    const activeTab = tabsRef.current.querySelector('.mob-tab.is-active') as HTMLElement;
+    if (activeTab) {
+      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [currentStep]);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging.current) return;
@@ -63,13 +73,11 @@ export default function App() {
       const newWidth = startWidth.current + (startX.current - e.clientX);
       setPreviewWidth(Math.min(800, Math.max(320, newWidth)));
     };
-
     const handleMouseUp = () => {
       isDragging.current = false;
       document.body.style.cursor = 'default';
       document.body.style.userSelect = 'auto';
     };
-
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
     return () => {
@@ -106,35 +114,41 @@ export default function App() {
           <span className="ed-topbar-pct">{pct}%</span>
         </div>
 
-        {/* Sélecteur d'étape pour mobile */}
-        <div className="ed-step-selector mobile-only">
-          <select
-            value={currentStep}
-            onChange={(e) => setStep(e.target.value as StepId)}
-            className="ed-step-select"
-            aria-label="Sélectionner une étape"
-          >
-            {STEPS.map((step) => (
-              <option key={step.id} value={step.id}>
-                {step.label} – {step.hint}
-              </option>
-            ))}
-          </select>
-        </div>
-
         <div className="ed-topbar-actions">
+          {/* Bouton aperçu mobile — toujours visible avec label */}
           <button
             className={`ed-preview-toggle mobile-only${showPreview ? ' is-active' : ''}`}
             onClick={() => setShowPreview(v => !v)}
-            title={showPreview ? 'Masquer l\'aperçu' : 'Voir l\'aperçu'}
+            title={showPreview ? "Masquer l'aperçu" : "Voir l'aperçu"}
           >
             {showPreview ? <EyeOff size={15}/> : <Eye size={15}/>}
-            <span>{showPreview ? 'Fermer' : 'Aperçu'}</span>
+            <span className="ed-preview-label">{showPreview ? 'Fermer' : 'Aperçu'}</span>
           </button>
 
           <ExportPdfButton compact />
         </div>
       </header>
+
+      {/* ── Tabs mobile — visibles sous la topbar ── */}
+      <div className="mob-tabs mobile-only" ref={tabsRef}>
+        {STEPS.map((s, i) => {
+          const isActive = s.id === currentStep;
+          const isDone   = i < idx;
+          return (
+            <button
+              key={s.id}
+              className={`mob-tab${isActive ? ' is-active' : ''}${isDone ? ' is-done' : ''}`}
+              onClick={() => setStep(s.id)}
+            >
+              <span className="mob-tab-icon">
+                {isDone ? <Check size={10} strokeWidth={3}/> : s.icon}
+              </span>
+              <span className="mob-tab-label">{s.label}</span>
+              {isActive && <span className="mob-tab-pip" />}
+            </button>
+          );
+        })}
+      </div>
 
       <div className="ed-body">
         <aside className="ed-sidebar">
