@@ -198,8 +198,9 @@ function Navigation() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [active, setActive]                 = useState('hero');
   const [menuOpen, setMenuOpen]             = useState(false);
-  const lastY    = useRef(0);
-  const headerRef = useRef<HTMLElement>(null);
+const lastY      = useRef(0);
+const headerRef  = useRef<HTMLElement>(null);
+const menuOpenRef = useRef(false);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -210,6 +211,10 @@ function Navigation() {
 
     // rAF polling — contourne le freeze des scroll events iOS pendant l'inertie
     const tick = () => {
+       if (menuOpenRef.current) {          // ← ajoute ça
+    rafId = requestAnimationFrame(tick);
+    return;
+   }
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const docH    = document.documentElement.scrollHeight - window.innerHeight;
 
@@ -249,17 +254,18 @@ function Navigation() {
   }, []);
 
   // Quand le menu s'ouvre/ferme, cache/montre via DOM aussi
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-    if (menuOpen) {
-      header.style.top = '-80px';
-      header.style.pointerEvents = 'none';
-    } else {
-      header.style.top = '14px';
-      header.style.pointerEvents = 'auto';
-    }
-  }, [menuOpen]);
+useEffect(() => {
+  menuOpenRef.current = menuOpen;  // ← ajoute cette ligne
+  const header = headerRef.current;
+  if (!header) return;
+  if (menuOpen) {
+    header.style.top = '-100px';
+    header.style.pointerEvents = 'none';
+  } else {
+    header.style.top = '14px';
+    header.style.pointerEvents = 'auto';
+  }
+}, [menuOpen]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
