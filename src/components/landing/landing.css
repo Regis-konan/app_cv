@@ -1,0 +1,1134 @@
+/* ============================================================
+   FONTS
+   Import Google Fonts — doit toujours être EN PREMIER dans le fichier
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+
+/* ============================================================
+   RESET GLOBAL
+   Supprime les marges/paddings par défaut du navigateur
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   PAGE DE BASE
+   ============================================================ */
+.landing {
+  background: #F8F5F2;
+  font-family: 'Inter', sans-serif;
+  color: #2C3E4F;
+  overflow-x: hidden;
+}
+
+
+/* ============================================================
+   NAVIGATION
+   Barre fixe en haut avec effet de flou
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  background: rgba(248, 245, 242, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(44, 62, 79, 0.05);
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2C3E4F;
+}
+
+/* La lettre accentuée du logo (ex: la première lettre colorée) */
+.logo-accent {
+  color: #7C9A92;
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #5A6B7A;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #7C9A92;
+}
+
+/* Bouton d'appel à l'action dans la nav */
+.nav-cta {
+  padding: 0.8rem 1.8rem;
+  background: #7C9A92;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover {
+  background: #6B8A82;
+}
+
+
+/* ============================================================
+   SECTION HERO
+   Première section visible — deux colonnes (texte + visuel)
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 5rem 5% 0;
+  gap: 4rem;
+}
+
+.hero-content {
+  max-width: 550px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: #2C3E4F;
+}
+
+/* Mot mis en valeur dans le titre (italique + couleur) */
+.hero-title-accent {
+  color: #7C9A92;
+  font-style: italic;
+}
+
+.hero-text {
+  font-size: 1.1rem;
+  color: #5A6B7A;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.hero-btn {
+  padding: 1rem 2rem;
+  border-radius: 40px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hero-btn.primary {
+  background: #2C3E4F;
+  color: white;
+  border: none;
+}
+
+.hero-btn.primary:hover {
+  background: #1F2E3C;
+}
+
+.hero-btn.secondary {
+  background: transparent;
+  border: 1px solid #2C3E4F;
+  color: #2C3E4F;
+}
+
+.hero-btn.secondary:hover {
+  background: rgba(44, 62, 79, 0.05);
+}
+
+/* Statistiques sous les boutons */
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #7C9A92;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #5A6B7A;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Côté droit du hero — cartes décoratives empilées */
+.hero-visual {
+  position: relative;
+  height: 500px;
+}
+
+.visual-card {
+  position: absolute;
+  width: 200px;
+  height: 280px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(44, 62, 79, 0.05);
+}
+
+.card-1 {
+  top: 10%;
+  right: 20%;
+  transform: rotate(-5deg);
+  background: #FFFFFF;
+  z-index: 1;
+}
+
+.card-2 {
+  top: 25%;
+  right: 5%;
+  transform: rotate(3deg);
+  background: #F5F5F5;
+  z-index: 2;
+}
+
+.card-3 {
+  top: 40%;
+  right: 15%;
+  transform: rotate(-2deg);
+  background: #EAEAEA;
+  z-index: 3;
+}
+
+.visual-placeholder {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  width: 150px;
+  height: 150px;
+  background: #7C9A92;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+
+/* ============================================================
+   TITRES DE SECTION
+   Format commun : numéro + texte alignés
+   ============================================================ */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  padding: 0 5%;
+}
+
+.title-number {
+  font-size: 1rem;
+  color: #7C9A92;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.title-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #2C3E4F;
+}
+
+
+/* ============================================================
+   SECTION MODÈLES (ancienne version — grille simple)
+   ============================================================ */
+.models {
+  padding: 5rem 5%;
+  background: white;
+}
+
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.model-card {
+  padding: 2rem;
+  background: #F8F5F2;
+  border-radius: 24px;
+  transition: transform 0.2s;
+}
+
+.model-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-preview {
+  width: 100%;
+  height: 160px;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(44, 62, 79, 0.05);
+}
+
+.model-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2C3E4F;
+}
+
+.model-card p {
+  color: #5A6B7A;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.card-btn {
+  padding: 0.5rem 0;
+  background: none;
+  border: none;
+  color: #7C9A92;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card-btn:hover {
+  transform: translateX(5px);
+}
+
+
+/* ============================================================
+   SECTION FONCTIONNALITÉS (ancienne version — grille simple)
+   ============================================================ */
+.features {
+  padding: 5rem 5%;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.02);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2C3E4F;
+}
+
+.feature-card p {
+  color: #5A6B7A;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+
+/* ============================================================
+   SECTION TÉMOIGNAGE (ancienne version — carte simple centrée)
+   ============================================================ */
+.testimonial {
+  padding: 5rem 5%;
+  background: #7C9A92;
+  color: white;
+}
+
+.testimonial-card {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonial-quote {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-style: italic;
+  opacity: 0.95;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+}
+
+.author-info {
+  text-align: left;
+}
+
+.author-info strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.author-info span {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+
+/* ============================================================
+   FOOTER (ancienne version — simple)
+   ============================================================ */
+.footer {
+  padding: 3rem 5%;
+  background: #2C3E4F;
+  color: white;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+
+/* ============================================================
+   SECTION MODÈLES — VERSION SHOWCASE (nouvelle version)
+   Grille de cartes avec numéro décoratif en arrière-plan
+   ============================================================ */
+.models-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 5%;
+}
+
+.model-showcase-card {
+  background: white;
+  border-radius: 30px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.model-showcase-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Cercle décoratif en haut à droite de chaque carte */
+.showcase-pattern {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at 30% 30%, var(--accent-light), transparent 70%);
+  opacity: 0.1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Grand numéro décoratif en transparence */
+.showcase-number {
+  font-size: 5rem;
+  font-weight: 200;
+  color: var(--accent);
+  opacity: 0.15;
+  line-height: 1;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+.showcase-content {
+  position: relative;
+  z-index: 2;
+}
+
+.model-showcase-card h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.model-showcase-card p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Mini aperçu visuel dans la carte */
+.showcase-preview {
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.preview-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.3;
+}
+
+.preview-line {
+  height: 4px;
+  width: 100%;
+  background: var(--accent);
+  opacity: 0.2;
+  border-radius: 2px;
+}
+
+.preview-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0.3;
+}
+
+.preview-bar {
+  height: 20px;
+  width: 4px;
+  background: var(--accent);
+  opacity: 0.2;
+}
+
+/* Lien "Voir le modèle" avec animation de décalage */
+.showcase-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  transition: gap 0.3s;
+}
+
+.showcase-link:hover {
+  gap: 1rem;
+}
+
+
+/* ============================================================
+   SECTION FONCTIONNALITÉS — VERSION TIMELINE
+   4 étapes avec une ligne horizontale décorative
+   ============================================================ */
+.features-timeline {
+  position: relative;
+  padding: 4rem 5%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+/* Ligne horizontale reliant les 4 étapes */
+.timeline-line {
+  position: absolute;
+  top: 60px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.2;
+  z-index: 1;
+}
+
+/* Points sur la ligne au-dessus de chaque carte */
+.timeline-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  top: 57px;
+  transform: translateX(-50%);
+  z-index: 2;
+  opacity: 0.5;
+}
+
+.dot-1 { left: calc(12.5% + 1rem); }
+.dot-2 { left: calc(37.5% + 1rem); }
+.dot-3 { left: calc(62.5% + 1rem); }
+.dot-4 { left: calc(87.5% + 1rem); }
+
+.timeline-item {
+  position: relative;
+  z-index: 3;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.item-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.timeline-item h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.item-pattern {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 70% 30%, var(--accent), transparent 70%);
+  opacity: 0.05;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   SECTION TÉMOIGNAGES — VERSION MOSAÏQUE
+   Grille 4 colonnes avec une grande carte principale
+   ============================================================ */
+.testimonials-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 1.5rem;
+  padding: 2rem 5%;
+}
+
+.mosaic-item {
+  background: white;
+  border-radius: 30px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s;
+}
+
+.mosaic-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Grande carte qui occupe 2 colonnes et 2 lignes */
+.item-main {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Guillemet décoratif géant */
+.mosaic-quote {
+  font-size: 4rem;
+  line-height: 0.5;
+  color: var(--accent);
+  opacity: 0.2;
+  font-family: serif;
+  margin-bottom: 1rem;
+}
+
+.mosaic-text {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.mosaic-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--accent), transparent);
+  opacity: 0.2;
+}
+
+/* Positions des petites cartes dans la grille */
+.item-small-1 { grid-column: 3; grid-row: 1; }
+.item-small-2 { grid-column: 4; grid-row: 1; }
+.item-small-3 { grid-column: 3; grid-row: 2; }
+.item-small-4 { grid-column: 4; grid-row: 2; }
+
+.small-quote {
+  font-size: 2rem;
+  color: var(--accent);
+  opacity: 0.2;
+  line-height: 0.5;
+}
+
+.small-text {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.small-author {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+
+/* ============================================================
+   SECTION FAQ — CARTES RETOURNABLES (effet flip 3D)
+   ============================================================ */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 5%;
+}
+
+/* Conteneur de la carte — la perspective donne l'effet 3D */
+.faq-card {
+  perspective: 1000px;
+  cursor: pointer;
+  height: 200px;
+}
+
+.faq-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+/* Face avant et face arrière partagent le même style de base */
+.faq-front,
+.faq-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 30px;
+  padding: 2rem;
+  background: white;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Face arrière retournée par défaut */
+.faq-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+}
+
+/* Quand la carte est ouverte, la face arrière revient en face */
+.faq-back.open {
+  transform: rotateY(0deg);
+}
+
+.faq-front {
+  justify-content: space-between;
+}
+
+.faq-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+.faq-front h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.faq-toggle {
+  align-self: flex-end;
+  font-size: 1.5rem;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.faq-back p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Bloc CTA sous la FAQ */
+.faq-cta {
+  text-align: center;
+  padding: 3rem 5%;
+  position: relative;
+}
+
+.cta-pattern {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 30% 30%, var(--accent), transparent 70%);
+  opacity: 0.05;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.faq-cta p {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.faq-contact-btn {
+  padding: 1rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 2;
+}
+
+.faq-contact-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ============================================================
+   FOOTER — VERSION ENRICHIE
+   Fond sombre avec grille décorative et colonnes de liens
+   ============================================================ */
+.footer {
+  position: relative;
+  background: var(--bg-dark);
+  color: white;
+  padding: 4rem 5% 2rem;
+  margin-top: 4rem;
+}
+
+/* Éléments décoratifs en arrière-plan (non cliquables) */
+.footer-patterns {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.footer-wave {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50L60 45C120 40 240 30 360 35C480 40 600 60 720 65C840 70 960 60 1080 50C1200 40 1320 30 1380 25L1440 20V100H0V50Z' fill='%23FFFFFF' opacity='0.05'/%3E%3C/svg%3E") no-repeat;
+  background-size: cover;
+}
+
+/* Grille de fond subtile */
+.footer-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Contenu principal du footer : logo + colonnes de liens */
+.footer-main {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.logo-icon {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.brand-description {
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 300px;
+}
+
+/* Icônes réseaux sociaux */
+.brand-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.social-link:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* Colonnes de liens dans le footer */
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.footer-column h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: white;
+  opacity: 0.9;
+}
+
+.footer-column a {
+  display: block;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.footer-column a:hover {
+  color: var(--accent);
+}
+
+/* Bas du footer : copyright centré */
+.footer-bottom {
+  position: relative;
+  z-index: 2;
+  padding-top: 2rem;
+}
+
+/* Ligne décorative dégradée au-dessus du copyright */
+.bottom-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.2;
+}
+
+.bottom-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+}
+
+/* Petit ornement qui tourne en continu */
+.bottom-ornament {
+  color: var(--accent);
+  opacity: 0.5;
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   Adaptations pour tablette (max 1024px) et mobile (max 768px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-actions,
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    height: 400px;
+  }
+
+  .models-grid,
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Cache les liens de navigation sur mobile */
+  .nav-links {
+    display: none;
+  }
+
+  .models-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-visual {
+    height: 300px;
+  }
+}

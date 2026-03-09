@@ -1,0 +1,231 @@
+/* ============================================================
+   FONTS — doit être EN PREMIER, avant tout le reste
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* ============================================================
+   TAILWIND — après les fonts, c'est obligatoire avec Tailwind v4
+   ============================================================ */
+@import "tailwindcss";
+
+
+/* ============================================================
+   VARIABLES GLOBALES (design system)
+   Toutes les couleurs et effets réutilisables dans l'app
+   ============================================================ */
+:root {
+  /* Couleurs principales */
+  --ivory:              #FAF7F2;
+  --prune:              #5D3A5E;
+  --prune-light:        #7E5A7F;
+  --terracotta:         #C97C5D;
+  --terracotta-light:   #D9967A;
+  --sage:               #8FBC94;
+  --sage-light:         #A5CDA9;
+  --charcoal:           #2D2327;
+  --taupe:              #4A3B42;
+  --sand:               #E8E0D5;
+  --cream:              #F5EFE8;
+
+  /* Ombres */
+  --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.1);
+
+  /* Transitions réutilisables */
+  --transition-base:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* ============================================================
+   BASE
+   Styles fondamentaux appliqués à toute l'app
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Couleur de sélection de texte */
+::selection {
+  background: var(--prune);
+  color: white;
+}
+
+
+/* ============================================================
+   SCROLLBAR PERSONNALISÉE
+   Style premium pour Chrome/Safari
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--prune), var(--terracotta));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--prune-light), var(--terracotta-light));
+}
+
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Lévitation douce — ex: éléments décoratifs */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-20px); }
+}
+
+/* Pulsation subtile d'opacité */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.8; }
+}
+
+/* Entrée depuis la gauche */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Entrée depuis la droite */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Apparition avec zoom */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Rotation lente continue */
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Déplacement dégradé — utilisé pour gradient-text */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* Morphing de forme organique */
+@keyframes morphBlob {
+  0%, 100% { border-radius: 63% 37% 44% 56% / 42% 52% 48% 58%; }
+  33%       { border-radius: 42% 58% 38% 62% / 56% 44% 56% 44%; }
+  66%       { border-radius: 58% 42% 52% 48% / 38% 62% 38% 62%; }
+}
+
+
+/* ============================================================
+   CLASSES UTILITAIRES D'ANIMATION
+   À appliquer directement dans le JSX
+   ============================================================ */
+.animate-float        { animation: float 6s ease-in-out infinite; }
+.animate-pulse-subtle { animation: pulse-subtle 3s ease-in-out infinite; }
+.animate-slide-left   { animation: slideInLeft 0.8s ease forwards; }
+.animate-slide-right  { animation: slideInRight 0.8s ease forwards; }
+.animate-scale-in     { animation: scaleIn 0.6s ease forwards; }
+
+/* Délais d'animation (utile pour animer les éléments en cascade) */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+
+/* ============================================================
+   COMPOSANTS UTILITAIRES RÉUTILISABLES
+   ============================================================ */
+
+/* Effet verre dépoli sur fond clair */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Effet verre dépoli sur fond sombre */
+.glass-dark {
+  background: rgba(45, 35, 39, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Texte avec dégradé animé */
+.gradient-text {
+  background: linear-gradient(135deg, var(--prune) 0%, var(--terracotta) 50%, var(--sage) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Forme organique qui se déforme lentement */
+.shape-blob {
+  border-radius: 63% 37% 44% 56% / 42% 52% 48% 58%;
+  animation: morphBlob 15s ease-in-out infinite;
+}
+
+/* Carte qui se lève au survol */
+.hover-card {
+  transition: var(--transition-base);
+}
+
+.hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Fond avec grille de points subtile */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(93, 58, 94, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 58, 94, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}

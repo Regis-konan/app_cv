@@ -1,0 +1,66 @@
+/* ── Templates base — format A4 ──────────────────────────
+   A4 = 210mm × 297mm → 794px × 1123px à 96dpi
+   ────────────────────────────────────────────────────── */
+
+.cv-root {
+  width: 794px;
+  height: 1123px;              /* FIXE → permet à aside d'avoir height:100% */
+  background: white;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;               /* ← MANQUAIT : met aside + main côte à côte */
+  flex-direction: row;         /* ← côte à côte */
+  align-items: stretch;        /* ← les deux colonnes font 1123px de haut */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Sidebar : hauteur 100% garantie par align-items:stretch du parent flex */
+.cv-root > aside {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  /* height:100% inutile ici, c'est align-items:stretch qui s'en charge */
+}
+
+/* Main : prend tout l'espace restant */
+.cv-root > main {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── Fonts ──────────────────────────────────────────────── */
+.cv-root[data-font="jakarta"]  { font-family: 'Plus Jakarta Sans', sans-serif; }
+.cv-root[data-font="fraunces"] { font-family: 'Fraunces', serif; }
+.cv-root[data-font="syne"]     { font-family: 'Syne', sans-serif; }
+.cv-root[data-font="dm-sans"]  { font-family: 'DM Sans', sans-serif; }
+
+/* ── Spacing ────────────────────────────────────────────── */
+.cv-root[data-spacing="compact"] { --cv-gap: 10px; --cv-section-gap: 14px; }
+.cv-root[data-spacing="normal"]  { --cv-gap: 14px; --cv-section-gap: 18px; }
+.cv-root[data-spacing="relaxed"] { --cv-gap: 18px; --cv-section-gap: 24px; }
+
+/* ── Helpers ────────────────────────────────────────────── */
+.cv-section-title  { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.cv-date           { font-size: 10px; opacity: 0.55; white-space: nowrap; }
+.cv-item-title     { font-size: 13px; font-weight: 700; line-height: 1.3; }
+.cv-item-sub       { font-size: 11px; opacity: 0.65; margin-top: 1px; }
+.cv-item-desc      { font-size: 11px; line-height: 1.65; opacity: 0.75; margin-top: 5px; }
+
+.cv-skill-bar          { display: flex; flex-direction: column; gap: 3px; }
+.cv-skill-bar__label   { font-size: 11px; font-weight: 500; }
+.cv-skill-bar__track   { height: 3px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
+.cv-skill-bar__fill    { height: 100%; border-radius: 99px; }
+
+.cv-skill-dots        { display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
+.cv-skill-dots__dots  { display: flex; gap: 3px; }
+.cv-skill-dots__dot   { width: 7px; height: 7px; border-radius: 50%; }
+
+.cv-lang-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; }
+
+/* ── Print ──────────────────────────────────────────────── */
+@media print {
+  .cv-root { width: 210mm; height: 297mm; box-shadow: none; }
+}

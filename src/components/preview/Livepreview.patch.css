@@ -1,0 +1,13 @@
+/* PATCH — à ajouter dans LivePreview.css */
+
+/* Empêche le wrapper de déborder horizontalement */
+.preview-canvas-wrapper {
+  overflow: hidden !important;   /* ← clé du fix mobile */
+  overflow-y: auto !important;
+  width: 100%;
+}
+
+/* Le contenu centré ne doit pas forcer une largeur > parent */
+.preview-canvas-content {
+  max-width: 100%;
+}

@@ -1,0 +1,331 @@
+/* ────────────────────────────────────────────────────────────
+   BOUTON D'EXPORT PDF
+   ──────────────────────────────────────────────────────────── */
+.export-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--acid);
+  color: var(--void);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 0 20px rgba(200,255,0,0.2);
+}
+
+/* Effet au survol */
+.export-pdf-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(200,255,0,0.3);
+}
+
+/* Effet au clic */
+.export-pdf-btn:active {
+  transform: translateY(0);
+}
+
+/* État désactivé */
+.export-pdf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Version compacte du bouton */
+.export-pdf-btn--compact {
+  padding: 6px 12px;
+  font-size: 11px;
+  border-radius: 8px;
+  gap: 4px;
+  box-shadow: none;
+}
+
+.export-pdf-btn--compact:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200,255,0,0.2);
+}
+
+/* Message d'erreur */
+.export-pdf-btn__error {
+  color: #ef4444;
+  background: rgba(239,68,68,0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* Spinner de chargement */
+.export-pdf-btn__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-top-color: var(--void);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Animation du spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Adaptation mobile */
+@media (max-width: 768px) {
+  .export-pdf-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .export-pdf-btn--compact {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   OVERLAY DE GÉNÉRATION PDF (fond sombre avec flou)
+   ──────────────────────────────────────────────────────────── */
+.pdf-overlay {
+  position: fixed;
+  inset: 0;
+  /* On augmente le z-index pour être au-dessus de TOUT (modales incluses) */
+  z-index: 999999; 
+  /* Fond plus sombre pour bien isoler le chargement */
+  background: rgba(15, 15, 15, 0.8); 
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Animation d'apparition de l'overlay */
+@keyframes pdf-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Carte blanche au centre */
+.pdf-overlay-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  /* Ombre plus profonde pour l'effet premium */
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); 
+  text-align: center;
+}
+
+/* Animation d'apparition de la carte (effet rebond) */
+@keyframes pdf-card-in {
+  from { opacity: 0; transform: scale(0.88) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* Icône avec spinner orbital autour */
+.pdf-overlay-icon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--terra, #B76E6E);
+  margin-bottom: 4px;
+}
+
+/* Spinner circulaire autour de l'icône */
+.pdf-overlay-spinner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--terra, #B76E6E);
+  border-right-color: rgba(183, 110, 110, 0.3);
+  animation: pdf-spin 0.9s linear infinite;
+}
+
+/* Animation de rotation du spinner */
+@keyframes pdf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Titre de l'overlay */
+.pdf-overlay-title {
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--dark, #1E1E1E);
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+/* Message sous le titre */
+.pdf-overlay-message {
+  font-size: 12px;
+  color: var(--gray, #8B8B8B);
+  text-align: center;
+  min-height: 18px;
+  transition: opacity 0.3s;
+  margin: 0;
+}
+
+/* Barre de progression */
+.pdf-overlay-track {
+  width: 100%;
+  height: 5px;
+  background: var(--sand, #E8D5C5);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+/* Remplissage de la barre */
+.pdf-overlay-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--terra, #B76E6E), #D4898A);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+/* Effet de brillance qui se déplace sur la barre */
+.pdf-overlay-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: pdf-shimmer 1.4s ease infinite;
+}
+
+/* Animation de la brillance */
+@keyframes pdf-shimmer {
+  to { left: 140%; }
+}
+
+/* Pourcentage affiché */
+.pdf-overlay-pct {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--terra, #B76E6E);
+  align-self: flex-end;
+  margin-top: -4px;
+}
+
+/* ────────────────────────────────────────────────────────────
+   TOASTS (notifications)
+   ──────────────────────────────────────────────────────────── */
+.pdf-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+ z-index: 1000000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-ui, sans-serif);
+  box-shadow: 0 8px 24px rgba(30,30,30,0.15);
+  white-space: nowrap;
+  animation: toast-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animation d'apparition du toast */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px) scale(0.92); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)     scale(1);   }
+}
+
+/* Toast de succès */
+.pdf-toast--success {
+  background: #fff;
+  color: #2D7D5A;
+  border: 1.5px solid rgba(45, 125, 90, 0.2);
+}
+
+/* Toast d'erreur avec bouton */
+.pdf-toast--error {
+  background: #fff;
+  color: #C05454;
+  border: 1.5px solid rgba(192, 84, 84, 0.2);
+  gap: 10px;
+}
+
+/* Bouton dans le toast d'erreur */
+.pdf-toast--error button {
+  background: var(--terra, #B76E6E);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-ui, sans-serif);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pdf-toast--error button:hover { 
+  background: #A85F5F; 
+}
+
+/* Adaptation mobile avec gestion de la zone de sécurité (notch) */
+@media (max-width: 700px) {
+  .pdf-toast {
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    font-size: 12px;
+    padding: 9px 16px;
+  }
+
+  .pdf-overlay-card {
+    padding: 28px 24px 24px;
+  }
+}
+/* Détails du footer de l'overlay */
+.pdf-overlay-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.pdf-engine-tag {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray, #8B8B8B);
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+/* Animation du bouton Export quand il charge */
+.btn-export.loading {
+  cursor: wait;
+  filter: grayscale(0.5);
+}
+
+.spin {
+  animation: pdf-spin 1s linear infinite;
+}
