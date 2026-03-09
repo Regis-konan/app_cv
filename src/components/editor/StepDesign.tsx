@@ -33,46 +33,94 @@ const DEFAULT_TEMPLATE_COLORS: Record<TemplateId, string> = {
 ───────────────────────────────────────────────────────────── */
 function TemplateMini({ id, color }: { id: TemplateId; color: string }) {
 
-  /* ── STUDENT : sidebar gauche colorée · photo ronde · main blanche ── */
+  /* ── STUDENT : header coloré pleine largeur + corps 2col + aside droit ── */
   if (id === 'student') return (
+    /* Nouveau design : header coloré pleine largeur + corps 2col + aside droit */
     <svg viewBox="0 0 130 168" style={{ width:'100%', height:'100%', display:'block' }}>
-      {/* Sidebar colorée */}
-      <rect width="42" height="168" fill={color} />
-      {/* Photo ronde centrée */}
-      <circle cx="21" cy="28" r="14" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.7)" strokeWidth="2"/>
-      <circle cx="21" cy="24" r="7" fill="rgba(255,255,255,0.45)"/>
-      <ellipse cx="21" cy="35" rx="9" ry="5" fill="rgba(255,255,255,0.3)"/>
-      {/* Nom sidebar */}
-      <rect x="7" y="50" width="28" height="3.5" rx="1.5" fill="rgba(255,255,255,0.75)"/>
-      <rect x="9" y="56" width="24" height="2.5" rx="1"   fill="rgba(255,255,255,0.4)"/>
-      <rect x="7" y="65" width="14" height="1.5" rx="1"   fill="rgba(255,255,255,0.25)"/>
-      {/* Skills tags pills blancs */}
-      {[74,81,88,95,102,109,116].map((y,i) => (
-        <rect key={y} x="7" y={y} width={[28,22,26,20,28,24,18][i]} height="5" rx="2.5"
-          fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.28)" strokeWidth="0.5"/>
+      {/* Fond page */}
+      <rect width="130" height="168" rx="7" fill="#FAFAF8"/>
+
+      {/* ── HEADER coloré ── */}
+      <rect width="130" height="46" rx="7" fill={color}/>
+      <rect y="25" width="130" height="21" fill={color}/>
+
+      {/* DotGrid — points blancs */}
+      {[0,1,2,3,4,5,6,7].map(xi => [0,1,2].map(yi => (
+        <circle key={`${xi}${yi}`} cx={5+xi*18} cy={5+yi*14} r="0.8" fill="white" fillOpacity="0.13"/>
+      )))}
+
+      {/* CornerArc TL */}
+      <path d="M 0 38 A 38 38 0 0 1 38 0" fill="none" stroke="white" strokeWidth="0.8" opacity="0.22"/>
+      <path d="M 0 25 A 25 25 0 0 1 25 0" fill="none" stroke="white" strokeWidth="0.8" opacity="0.14"/>
+      {/* CornerArc BR */}
+      <path d="M 130 8 A 38 38 0 0 1 92 46" fill="none" stroke="white" strokeWidth="0.8" opacity="0.22"/>
+      <path d="M 130 21 A 25 25 0 0 1 105 46" fill="none" stroke="white" strokeWidth="0.8" opacity="0.14"/>
+
+      {/* Photo — double cercle */}
+      <circle cx="22" cy="23" r="13" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.65)" strokeWidth="1.2"/>
+      <circle cx="22" cy="23" r="13" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2.5" strokeDasharray="3 2"/>
+      <circle cx="22" cy="19" r="6" fill="rgba(255,255,255,0.4)"/>
+      <ellipse cx="22" cy="29" rx="8" ry="5" fill="rgba(255,255,255,0.25)"/>
+
+      {/* Nom + titre dans le header */}
+      <rect x="40" y="10" width="44" height="5" rx="2" fill="rgba(255,255,255,0.9)"/>
+      <rect x="40" y="18" width="28" height="3" rx="1.5" fill="rgba(255,255,255,0.55)"/>
+      <rect x="40" y="25" width="52" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+      <rect x="40" y="30" width="38" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+      <rect x="40" y="36" width="44" height="2" rx="1" fill="rgba(255,255,255,0.2)"/>
+
+      {/* ── CORPS : main gauche + aside droit ── */}
+      {/* Aside droit (fond blanc, largeur ~30) */}
+      <rect x="100" y="46" width="30" height="122" fill="white"/>
+      {/* Triangles décoratifs dans aside */}
+      <polygon points="100,46 116,46 100,62" fill={color} fillOpacity="0.1"/>
+      <polygon points="130,150 130,168 114,168" fill={color} fillOpacity="0.08"/>
+
+      {/* Skills dans aside */}
+      <rect x="103" y="52" width="22" height="2.5" rx="1" fill={color} fillOpacity="0.7"/>
+      {[59,66,73,80,87].map((y,i) => (
+        <rect key={y} x="103" y={y} width={[22,18,20,16,20][i]} height="4.5" rx="2.2"
+          fill="white" stroke={color} strokeWidth="0.5" strokeOpacity={[1,0.5,1,0.5,1][i]}
+          fillOpacity={[0,1,0,1,0][i] * 0.12 + 0.02}/>
       ))}
-      {/* Main blanche */}
-      <rect x="42" width="88" height="168" fill="white"/>
-      {/* Header */}
-      <rect x="50" y="12" width="56" height="6"   rx="2"   fill="#1a1a1a"/>
-      <rect x="50" y="21" width="22" height="2.5" rx="1"   fill={color} opacity="0.7"/>
-      <rect x="42" y="28" width="88" height="1"           fill={color} opacity="0.12"/>
-      {/* Section titre avec cercle coloré */}
-      <circle cx="52" cy="37" r="5" fill={color}/>
-      <rect x="62" y="34.5" width="24" height="5" rx="2" fill="#333"/>
-      <rect x="50" y="45" width="72" height="2.5" rx="1" fill="#eee"/>
-      <rect x="50" y="51" width="60" height="2.5" rx="1" fill="#eee"/>
-      <rect x="50" y="57" width="68" height="2.5" rx="1" fill="#eee"/>
-      {/* Section 2 */}
-      <circle cx="52" cy="69" r="5" fill={color}/>
-      <rect x="62" y="66.5" width="30" height="5" rx="2" fill="#333"/>
-      {/* Timeline items */}
-      {[77,92,107].map(y => (
+      {/* OrnDivider losange */}
+      <rect x="103" y="97" width="22" height="0.5" fill={color} fillOpacity="0.2"/>
+      <polygon points="114,94 117,97 114,100 111,97" fill={color} fillOpacity="0.45"/>
+      <rect x="103" y="97" width="22" height="0.5" fill={color} fillOpacity="0.2"/>
+
+      {/* Langues dans aside — barre fine */}
+      <rect x="103" y="104" width="22" height="2.5" rx="1" fill={color} fillOpacity="0.7"/>
+      {[111,119,127].map(y => (
         <g key={y}>
-          <circle cx="54" cy={y+2} r="3" fill={color}/>
-          <rect x="60" y={y}   width="52" height="3.5" rx="1.5" fill={color} opacity="0.55"/>
-          <rect x="60" y={y+6} width="62" height="2.5" rx="1"   fill="#e8e8e8"/>
-          <rect x="60" y={y+11} width="54" height="2.5" rx="1"  fill="#e8e8e8"/>
+          <rect x="103" y={y} width="22" height="2" rx="1" fill="#eee"/>
+          <rect x="103" y={y} width={[16,10,20][Math.floor((y-111)/8)]} height="2" rx="1" fill={color} fillOpacity="0.5"/>
+        </g>
+      ))}
+
+      {/* Main gauche — sections */}
+      <rect x="6" y="51" width="30" height="3" rx="1.5" fill={color} fillOpacity="0.8"/>
+      <rect x="6" y="57" width="90" height="2" rx="1" fill="#e0e0e0"/>
+      <rect x="6" y="61" width="80" height="2" rx="1" fill="#e0e0e0"/>
+      <rect x="6" y="65" width="86" height="2" rx="1" fill="#e0e0e0"/>
+
+      {/* Expériences — timeline losange */}
+      <rect x="6" y="72" width="26" height="3" rx="1.5" fill={color} fillOpacity="0.8"/>
+      {[79,93,107].map(y => (
+        <g key={y}>
+          <polygon points={`12,${y+3} 15,${y} 18,${y+3} 15,${y+6}`} fill={color}/>
+          <rect x="21" y={y} width="50" height="3.5" rx="1.5" fill="#222" fillOpacity="0.7"/>
+          <rect x="21" y={y+6} width="70" height="2" rx="1" fill="#e8e8e8"/>
+          <rect x="21" y={y+10} width="60" height="2" rx="1" fill="#e8e8e8"/>
+        </g>
+      ))}
+
+      {/* Formation — timeline cercle creux */}
+      <rect x="6" y="122" width="24" height="3" rx="1.5" fill={color} fillOpacity="0.8"/>
+      {[129,143].map(y => (
+        <g key={y}>
+          <circle cx="14" cy={y+3} r="3" fill="none" stroke={color} strokeWidth="1.2"/>
+          <rect x="21" y={y} width="44" height="3.5" rx="1.5" fill="#222" fillOpacity="0.65"/>
+          <rect x="21" y={y+6} width="60" height="2" rx="1" fill="#e8e8e8"/>
         </g>
       ))}
     </svg>
@@ -177,57 +225,88 @@ function TemplateMini({ id, color }: { id: TemplateId; color: string }) {
     </svg>
   );
 
-  /* ── HEALTH : header coloré full-width · photo ronde dans header · 2 col body ── */
+  /* ── HEALTH : aside gauche hexagones + barre colorée + main droite typographique ── */
   if (id === 'health') return (
+    /* Nouveau design : aside gauche hexagones + barre colorée + main droite typographique */
     <svg viewBox="0 0 130 168" style={{ width:'100%', height:'100%', display:'block' }}>
-      <rect width="130" height="168" fill="white"/>
-      {/* Header coloré */}
-      <rect width="130" height="44" fill={color}/>
-      {/* Photo ronde dans header */}
-      <circle cx="24" cy="22" r="16" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.7)" strokeWidth="2"/>
-      <circle cx="24" cy="18" r="8"  fill="rgba(255,255,255,0.4)"/>
-      <ellipse cx="24" cy="29" rx="10" ry="6" fill="rgba(255,255,255,0.25)"/>
-      {/* Nom dans header */}
-      <rect x="46" y="10" width="50" height="7"   rx="2"   fill="rgba(255,255,255,0.9)"/>
-      <rect x="46" y="21" width="34" height="3"   rx="1.5" fill="rgba(255,255,255,0.55)"/>
-      {/* Contacts header droite */}
-      <rect x="102" y="10" width="22" height="2" rx="1" fill="rgba(255,255,255,0.38)"/>
-      <rect x="102" y="15" width="18" height="2" rx="1" fill="rgba(255,255,255,0.28)"/>
-      <rect x="102" y="20" width="22" height="2" rx="1" fill="rgba(255,255,255,0.28)"/>
-      {/* Transition */}
-      <rect width="130" height="3" y="44" fill={color} opacity="0.28"/>
-      {/* Colonne gauche */}
-      {/* Section titre avec icône + */}
-      {[54,96].map((y,si) => (
+      <rect width="130" height="168" rx="7" fill="white"/>
+
+      {/* ── ASIDE GAUCHE — fond #FAFAFA, hexagones ── */}
+      <rect width="46" height="168" rx="7" fill="#FAFAFA"/>
+      <rect width="7" height="168" fill="#FAFAFA"/>
+
+      {/* Hexagones nid d'abeille (simplifiés en losanges pour le mini) */}
+      {[0,1,2,3,4,5].map(xi => [0,1,2,3,4,5,6].map(yi => (
+        <polygon key={`${xi}${yi}`}
+          points={`${4+xi*8},${3+yi*12+((xi%2)*6)} ${7+xi*8},${1+yi*12+((xi%2)*6)} ${10+xi*8},${3+yi*12+((xi%2)*6)} ${10+xi*8},${7+yi*12+((xi%2)*6)} ${7+xi*8},${9+yi*12+((xi%2)*6)} ${4+xi*8},${7+yi*12+((xi%2)*6)}`}
+          fill="none" stroke={color} strokeWidth="0.4" opacity="0.18"/>
+      )))}
+
+      {/* Barre fine colorée bord droit aside */}
+      <rect x="43" y="0" width="3" height="168" fill={color} fillOpacity="0.7"/>
+
+      {/* Photo carrée clip-path coin coupé */}
+      <rect x="7" y="8" width="28" height="28" rx="2" fill={color} fillOpacity="0.18"/>
+      <rect x="8" y="9" width="26" height="26" fill="rgba(255,255,255,0.35)"/>
+      {/* Ombre décalée */}
+      <rect x="10" y="38" width="26" height="2" rx="1" fill={color} fillOpacity="0.12"/>
+
+      {/* Nom + titre dans aside */}
+      <rect x="5" y="42" width="36" height="3.5" rx="1.5" fill="#222" fillOpacity="0.75"/>
+      <rect x="7" y="48" width="28" height="2.5" rx="1" fill={color} fillOpacity="0.6"/>
+
+      {/* Contacts aside */}
+      {[55,62,69,76].map((y,i) => (
         <g key={y}>
-          <circle cx="10" cy={y+3}   r="6" fill={color}/>
-          <rect x="10" y={y+0.5} width="0.8" height="5" fill="white" transform={`translate(9.6,${y+1})`}/>
-          <rect x="20" y={y+1} width={[28,32][si]} height="4.5" rx="2" fill="#222" opacity="0.8"/>
-          <rect x="20" y={y+0.5} width="60" height="0.5" fill={color} opacity="0.18"/>
+          <rect x="5" y={y} width="5" height="5" rx="1" fill={color} fillOpacity={0.7}/>
+          <rect x="12" y={y+1} width={[28,22,26,20][i]} height="2.5" rx="1" fill="#bbb"/>
         </g>
       ))}
-      {/* Timeline items */}
-      {[63,75,105,117].map(y => (
+
+      {/* Skills — alternance fond coloré / transparent */}
+      <rect x="5" y="86" width="32" height="2.5" rx="1" fill={color} fillOpacity="0.7"/>
+      {[92,98,104,110,116,122].map((y,i) => (
+        <rect key={y} x="5" y={y} width="34" height="5" rx="1.5"
+          fill={i%2===0 ? color : 'white'} fillOpacity={i%2===0 ? 0.12 : 0.5}
+          stroke={color} strokeWidth="0.4" strokeOpacity="0.4"/>
+      ))}
+
+      {/* ── MAIN DROITE ── */}
+      <rect x="46" y="0" width="84" height="168" fill="white"/>
+
+      {/* Header typographique — grande initiale watermark */}
+      <text x="118" y="36" fontFamily="serif" fontSize="38" fill={color} fillOpacity="0.07" textAnchor="end">A</text>
+      <rect x="52" y="8" width="11" height="2" rx="1" fill="#aaa" fillOpacity="0.6"/>
+      <rect x="52" y="13" width="54" height="6" rx="2" fill={color} fillOpacity="0.85"/>
+      <rect x="52" y="22" width="38" height="3.5" rx="1.5" fill="#222" fillOpacity="0.8"/>
+      <rect x="52" y="28" width="58" height="1" fill={color} fillOpacity="0.25"/>
+      <rect x="52" y="32" width="30" height="2.5" rx="1" fill="#bbb"/>
+
+      {/* Section profil */}
+      <rect x="52" y="42" width="22" height="3" rx="1.5" fill={color} fillOpacity="0.8"/>
+      <rect x="52" y="48" width="72" height="2" rx="1" fill="#e8e8e8"/>
+      <rect x="52" y="52" width="64" height="2" rx="1" fill="#e8e8e8"/>
+      <rect x="52" y="56" width="70" height="2" rx="1" fill="#e8e8e8"/>
+
+      {/* Section formation — cercles creux */}
+      <rect x="52" y="64" width="26" height="3" rx="1.5" fill={color} fillOpacity="0.8"/>
+      {[71,84].map(y => (
         <g key={y}>
-          <rect x="8"  y={y}   width="10" height="2"   rx="1"   fill="#ddd"/>
-          <circle cx="22" cy={y+1} r="3" fill={color} opacity="0.7"/>
-          <rect x="28" y={y}   width="48" height="3.5" rx="1.5" fill={color} opacity="0.55"/>
-          <rect x="28" y={y+6} width="52" height="2.5" rx="1"   fill="#ececec"/>
+          <circle cx="56" cy={y+3} r="3" fill="none" stroke={color} strokeWidth="1.2"/>
+          <rect x="63" y={y} width="46" height="3.5" rx="1.5" fill="#222" fillOpacity="0.65"/>
+          <rect x="63" y={y+6} width="52" height="2" rx="1" fill="#e8e8e8"/>
         </g>
       ))}
-      {/* Colonne droite grise */}
-      <rect x="86" y="48" width="44" height="120" fill="#F7F9F8"/>
-      <rect x="86" y="48" width="1"  height="120" fill="#eee"/>
-      {/* Skills tags */}
-      <rect x="90" y="56" width="30" height="2.5" rx="1" fill={color} opacity="0.7"/>
-      {[63,69,75,81,87,93,99].map((y,i) => (
-        <rect key={y} x="90" y={y} width={[26,20,28,22,24,18,26][i]} height="4.5" rx="2.2"
-          fill="white" stroke={color} strokeWidth="0.5" strokeOpacity="0.5"/>
-      ))}
-      {/* Langues */}
-      <rect x="90" y="110" width="30" height="2.5" rx="1" fill={color} opacity="0.7"/>
-      {[117,125,133].map((y,i) => (
-        <rect key={y} x="90" y={y} width={[34,28,32][i]} height="3" rx="1.5" fill="#e0e0e0"/>
+
+      {/* Section expériences — ronds pleins */}
+      <rect x="52" y="98" width="30" height="3" rx="1.5" fill={color} fillOpacity="0.8"/>
+      {[105,119,133].map(y => (
+        <g key={y}>
+          <circle cx="56" cy={y+3} r="3" fill={color}/>
+          <rect x="63" y={y} width="52" height="3.5" rx="1.5" fill="#222" fillOpacity="0.65"/>
+          <rect x="63" y={y+6} width="58" height="2" rx="1" fill="#e8e8e8"/>
+          <rect x="63" y={y+10} width="46" height="2" rx="1" fill="#e8e8e8"/>
+        </g>
       ))}
     </svg>
   );
@@ -257,7 +336,7 @@ function TemplateMini({ id, color }: { id: TemplateId; color: string }) {
       ))}
       {/* Formation sidebar */}
       <rect x="5" y="102" width="32" height="3"   rx="1.5" fill="rgba(255,255,255,0.14)"/>
-      <rect x="5" y="108" width="26" height="2.5" rx="1"   fill={color} opacity="0.38)"/>
+      <rect x="5" y="108" width="26" height="2.5" rx="1"   fill={color} opacity="0.38"/>
       <rect x="5" y="118" width="30" height="3"   rx="1.5" fill="rgba(255,255,255,0.1)"/>
       {/* Main */}
       <rect x="42" y="0"  width="88" height="26" fill="white"/>
